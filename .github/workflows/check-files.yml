@@ -1,9 +1,11 @@
 name: check files
 run-name: Check files on TypeScript and linter errors
-on: [push]
+on:
+  push:
+    branches:
+      - "*"
 jobs:
   ts-check:
-    if: ${{ github.ref_type == 'branch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,7 +18,6 @@ jobs:
         run: ./actions/ts-check.sh
 
   linter-check:
-    if: ${{ github.ref_type == 'branch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
