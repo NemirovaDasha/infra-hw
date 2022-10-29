@@ -10,9 +10,9 @@ jobs:
         with:
           node-version: '16.16.0'
       - name: Install packages
-      - run: npm install
+        run: npm install
       - name: Run ts check
-      - run: ./actions/ts-check.sh
+        run: ./actions/ts-check.sh
 
   linter-check:
     runs-on: ubuntu-latest
@@ -22,6 +22,6 @@ jobs:
         with:
           node-version: '16.16.0'
       - name: Install packages
-      - run: npm install
+        run: npm install
       - name: Run linter check
-      - run: ./actions/ts-check.sh
+        run: ./actions/ts-check.sh
