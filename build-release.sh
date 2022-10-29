@@ -5,7 +5,7 @@ npm run ts
 
 echo "Start ts check"
 
-if ["$?" != "0"]; then
+if [ "$?" != "0" ]; then
   echo "Failed ts check" >&2
   exit 1
 fi

@@ -5,7 +5,6 @@ jobs:
   ts-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check ts files
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -15,7 +14,6 @@ jobs:
   linter-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Linter check files
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
