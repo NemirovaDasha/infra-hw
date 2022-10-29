@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 # TS check project
-npm run ts
-
 echo "Start ts check"
+npm run ts
 
 if [ "$?" != "0" ]; then
   echo "Failed ts check" >&2
