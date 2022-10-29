@@ -1,6 +1,9 @@
 name: build release
 run-name: Build release version of product
-on: [push]
+on:
+  push:
+    tags:
+      - rc-0.0.*
 jobs:
   build-project:
     runs-on: ubuntu-latest
@@ -9,5 +12,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.16.0'
-      - run: npm install
-      - run: ./actions/build-release.sh
+      - name: Install packages
+        run: npm install
+      - name: Run build release
+        run: ./actions/build-release.sh

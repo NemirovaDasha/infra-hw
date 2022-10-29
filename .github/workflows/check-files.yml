@@ -1,6 +1,7 @@
 name: check files
 run-name: Check files on TypeScript and linter errors
-on: [push]
+on:
+  push: [branches]
 jobs:
   ts-check:
     runs-on: ubuntu-latest
