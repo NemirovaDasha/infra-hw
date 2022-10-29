@@ -9,8 +9,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.16.0'
+      - name: Install packages
       - run: npm install
-      - run: npm run ts
+      - name: Run ts check
+      - run: ./actions/ts-check.sh
+
   linter-check:
     runs-on: ubuntu-latest
     steps:
@@ -18,5 +21,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.16.0'
+      - name: Install packages
       - run: npm install
-      - run: npm run lint
+      - name: Run linter check
+      - run: ./actions/ts-check.sh
