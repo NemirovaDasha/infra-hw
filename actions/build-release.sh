@@ -18,6 +18,7 @@ else
   RESULT=$(git log $CURRENT_TAG --pretty=format:"%h %an %s")
 fi
 
+# результат для запроса
 COMMENT_TEXT='{"text": "'"$RESULT"'"}'
 echo "result:"
 echo "$COMMENT_TEXT"
