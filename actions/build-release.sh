@@ -7,5 +7,6 @@ echo ${RESULT}
 
 echo 'ref'
 echo ${GITHUB-REF}
+echo ${github-ref}
 
 exit 0

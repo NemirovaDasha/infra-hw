@@ -17,10 +17,10 @@ jobs:
       - name: Install packages
         run: npm install
       - env:
-          GITHUB-REF: ${{ github.ref_name }}
-      - uses: ./
-        with:
-          github-ref: ${{ github.ref_name }}
+        GITHUB-REF: ${{ github.ref_name }}
+        uses: ./
+          with:
+            github-ref: ${{ github.ref_name }}
 #      - name: Check ts files
 #        run: ./actions/ts-check.sh
 #      - name: Check linter files
