@@ -1,9 +1,9 @@
 name: build release
 run-name: Build release version of product
-on:
-  push:
-    tags:
-      - rc-0.0.*
+on: [push]
+#  push:
+#    tags:
+#      - rc-0.0.*
 jobs:
   build-project:
     runs-on: ubuntu-latest
@@ -21,4 +21,6 @@ jobs:
       - name: Check linter files
         run: ./actions/linter-check.sh
       - name: Build release
+        with:
+          github-ref:  ${{ github.context.ref_name }}
         run: ./actions/build-release.sh
