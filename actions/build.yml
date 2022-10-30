@@ -1,0 +1,10 @@
+name: 'Build action'
+description: 'Make release build'
+author: 'Nemirova Dasha'
+inputs:
+  github-ref:
+    description: 'This is commit sha'
+    required: true
+runs:
+  using: 'node16.16.0'
+  main: 'build.js'

@@ -16,11 +16,12 @@ jobs:
           node-version: '16.16.0'
       - name: Install packages
         run: npm install
-      - name: Check ts files
-        run: ./actions/ts-check.sh
-      - name: Check linter files
-        run: ./actions/linter-check.sh
-      - name: Build release
-        run: ./actions/build-release.sh
-        with:
-          github-ref: ${{ github.context.ref_name }}
+      - uses: ./actions/build
+#      - name: Check ts files
+#        run: ./actions/ts-check.sh
+#      - name: Check linter files
+#        run: ./actions/linter-check.sh
+#      - name: Build release
+#        run: ./actions/build-release.sh
+#        with:
+#          github-ref: ${{ github.ref_name }}
