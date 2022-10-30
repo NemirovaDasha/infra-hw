@@ -1,7 +1,19 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-
-const TOKEN = core.getInput('github-ref', {required: true});
-console.log(TOKEN)
-console.log(github.context.payload.ref_name)
+console.log(process.env)
 process.exit(0);
+try {
+  const OAUTH_TOKEN = process.env.OAUTH_TOKEN;
+  const X_ORG_ID = process.env.X_ORG_ID;
+  const TAG = process.env.GITHUB_REF_NAME;
+  const PREV_TAG = process.env.PREV_TAG;
+
+  const ticketTitle = `Релиз ${TAG} - ${new Date().toLocaleDateString()}`;
+
+  console.log(OAUTH_TOKEN)
+  console.log(X_ORG_ID)
+  console.log(TAG)
+  console.log(PREV_TAG)
+  console.log(ticketTitle)
+
+} catch (error) {
+  console.error("error");
+}
