@@ -15,7 +15,7 @@ echo "[SUCCESS] End build docker"
 
 # собираем проект для production
 echo "[INFO] Start run docker"
-docker run --rm -v "$PWD/build:/app/build" --name $PROJECT_NAME_prod $PROJECT_NAME
+docker run --rm -v "$PWD/build:/app/build" --name $PROJECT_NAME'_prod' $PROJECT_NAME
 
 if [ "$?" != "0" ]; then
   echo "[ERROR] Failed run docker" >&2
