@@ -5,28 +5,46 @@ on:
     tags:
       - rc-0.0.*
 jobs:
+  check-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.16.0'
+      - name: "Установка пакетов"
+        run: npm install
+      - name: "Проверка ts файлов"
+        if: success()
+        run: ./actions/ts-check.sh
+      - name: "Проверка eslint"
+        if: success()
+        run: ./actions/linter-check.sh
+
+  make-docker:
+    runs-on: ubuntu-latest
+    needs: check-files
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Собираем докер образ"
+        env:
+          CURRENT_TAG: ${{ github.ref_name }}
+          OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
+          X_ORG_ID: ${{ secrets.X_ORG_ID }}
+        run: ./actions/make-docker.sh
+
   build-project:
     runs-on: ubuntu-latest
+    needs: [check-files, make-docker]
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16.16.0'
-      - name: Install packages
-        run: npm install
-      - env:
+      - name: "Записываем данные в релизный тикет"
+        if: success()
+        env:
           CURRENT_TAG: ${{ github.ref_name }}
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
           X_ORG_ID: ${{ secrets.X_ORG_ID }}
           TAG_AUTHOR: ${{ github.actor }}
-        run: ./actions/build-release.sh
-#      - name: Check ts files
-#        run: ./actions/ts-check.sh
-#      - name: Check linter files
-#        run: ./actions/linter-check.sh
-#      - name: Build release
-#        run: ./actions/build-release.sh
-#        with:
-#          github-ref: ${{ github.ref_name }}
+        run: ./actions/make-release-ticket.sh
