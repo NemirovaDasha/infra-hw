@@ -11,10 +11,10 @@ echo "$PREV_TAG"
 if [[ $PREV_TAG ]]; then
   echo "$CURRENT_TAG and $PREV_TAG"
   # берем коммиты между двумя
-  RESULT=$(git log $CURRENT_TAG...$PREV_TAG --pretty=format:"%h %an %s" | tr '\n' ';' | sed 's/;/ - /')
+  RESULT=$(git log $CURRENT_TAG...$PREV_TAG --pretty=format:"%h %an %s")
 else
   # берем все коммиты
-  RESULT=$(git log $CURRENT_TAG --pretty=format:"%h %an %s" | tr '\n' ';' | sed 's/;/ - /')
+  RESULT=$(git log $CURRENT_TAG --pretty=format:"%h %an %s")
 fi
 
 # форматирование коммитов в одну строку
