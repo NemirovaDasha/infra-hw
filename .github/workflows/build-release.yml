@@ -1,6 +1,6 @@
 name: build release
 run-name: Build release version of product
-on: [push]
+on: [ push ]
 #  push:
 #    tags:
 #      - rc-0.0.*
@@ -17,6 +17,8 @@ jobs:
       - name: Install packages
         run: npm install
       - uses: ./
+        with:
+          github-ref: ${{ github.ref_name }}
 #      - name: Check ts files
 #        run: ./actions/ts-check.sh
 #      - name: Check linter files
