@@ -18,6 +18,8 @@ jobs:
         run: npm install
       - env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
+          OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
+          X_ORG_ID: ${{ secrets.X_ORG_ID }}
         run: ./actions/build-release.sh
 #      - name: Check ts files
 #        run: ./actions/ts-check.sh
