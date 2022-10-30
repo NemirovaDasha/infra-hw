@@ -6,7 +6,6 @@ RESULT=$(git log --pretty=format:"%h\%an\%s;")
 echo ${RESULT}
 
 echo 'ref'
-echo ${GITHUB-REF}
-echo ${github-ref}
+echo "$GITHUB_REF_NAME"
 
 exit 0
