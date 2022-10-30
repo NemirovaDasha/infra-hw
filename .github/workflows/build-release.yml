@@ -16,12 +16,13 @@ jobs:
           node-version: '16.16.0'
       - name: Install packages
         run: npm install
-      - name: Set env
-        run: echo "PREV_TAG=$(git describe --abbrev=0 --tags $CURRENT_TAG^)" >> $GITHUB_ENV
-      - env:
+      - name: Build
+        run: echo "::set-output name=PREV_TAG::$(git describe --abbrev=0 --tags $GITHUB_REF_NAME^)"
+        env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
           X_ORG_ID: ${{ secrets.X_ORG_ID }}
+          PREV_TAG: ${{ steps.vars.outputs.PREV_TAG }}
         uses: ./
 #      - name: Check ts files
 #        run: ./actions/ts-check.sh
