@@ -16,6 +16,8 @@ jobs:
           node-version: '16.16.0'
       - name: Install packages
         run: npm install
+      - env:
+          GITHUB-REF: ${{ github.ref_name }}
       - uses: ./
         with:
           github-ref: ${{ github.ref_name }}
