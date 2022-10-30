@@ -1,5 +1,5 @@
 name: build release
-run-name: Build release version of product
+run-name: "Сборка релизной версии проекта"
 on:
   push:
     tags:

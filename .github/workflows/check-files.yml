@@ -1,5 +1,5 @@
 name: check files
-run-name: Check files on TypeScript and linter errors
+run-name: "Проверка файлов на ошибки eslint + ts"
 on:
   push:
     branches:
