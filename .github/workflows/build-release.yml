@@ -19,8 +19,8 @@ jobs:
       - env:
         GITHUB-REF: ${{ github.ref_name }}
         uses: ./
-          with:
-            github-ref: ${{ github.ref_name }}
+        with:
+          github-ref: ${{ github.ref_name }}
 #      - name: Check ts files
 #        run: ./actions/ts-check.sh
 #      - name: Check linter files
