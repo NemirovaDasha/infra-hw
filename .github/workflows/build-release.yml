@@ -21,6 +21,6 @@ jobs:
       - name: Check linter files
         run: ./actions/linter-check.sh
       - name: Build release
-        with:
-          github-ref:  ${{ github.context.ref_name }}
         run: ./actions/build-release.sh
+        with:
+          github-ref: ${{ github.context.ref_name }}
