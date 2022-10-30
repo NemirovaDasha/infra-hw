@@ -1,4 +1,4 @@
-import * as core from '@actions/core';
+const core = require('@actions/core');
 const github = require('@actions/github');
 
 // {required: true} выкинет ошибку, если input не передан

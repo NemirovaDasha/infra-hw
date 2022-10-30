@@ -6,7 +6,7 @@ npm run lint
 
 if [ "$?" != "0" ]; then
   echo "[ERROR] Failed linter check" >&2
-  exit 0
+  exit 1
 fi
 
 echo "[SUCCESS] End linter check"

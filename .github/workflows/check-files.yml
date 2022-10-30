@@ -27,4 +27,4 @@ jobs:
       - name: Install packages
         run: npm install
       - name: Run linter check
-        run: ./actions/ts-check.sh
+        run: ./actions/linter-check.sh
