@@ -12,9 +12,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.16.0'
-      - name: Install packages
+      - name: "Установка пакетов"
         run: npm install
-      - name: Run ts check
+      - name: "Проверка ts файлов"
         run: ./actions/ts-check.sh
 
   linter-check:
@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.16.0'
-      - name: Install packages
+      - name: "Установка пакетов"
         run: npm install
-      - name: Run linter check
+      - name: "Проверка eslint"
         run: ./actions/linter-check.sh

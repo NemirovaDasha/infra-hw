@@ -33,7 +33,7 @@ jobs:
           X_ORG_ID: ${{ secrets.X_ORG_ID }}
         run: ./actions/make-docker.sh
 
-  build-project:
+  make-release-ticket:
     runs-on: ubuntu-latest
     needs: [check-files, make-docker]
     steps:
