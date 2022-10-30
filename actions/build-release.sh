@@ -24,6 +24,6 @@ fi
 COMMENT_TEXT='{"text": "'"$RESULT"'"}'
 echo "result:"
 echo "$COMMENT_TEXT"
-curl -X POST https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/comments -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d $COMMENT_TEXT
+curl -X POST https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/comments -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d "$COMMENT_TEXT"
 
 exit 0
