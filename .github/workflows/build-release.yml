@@ -16,7 +16,7 @@ jobs:
           node-version: '16.16.0'
       - name: Install packages
         run: npm install
-      - uses: ./actions/build
+      - uses: ./
 #      - name: Check ts files
 #        run: ./actions/ts-check.sh
 #      - name: Check linter files
