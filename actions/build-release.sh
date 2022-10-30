@@ -3,35 +3,34 @@
 # сборка проекта
 
 # запись коммитов в тикет
-#CURRENT_TAG=$GITHUB_REF_NAME
-#PREV_TAG=$(git describe --abbrev=0 --tags $CURRENT_TAG^) #предыдущий релиз
-#
-#echo "$CURRENT_TAG"
-#echo "$PREV_TAG"
-#
-#if [[ $PREV_TAG ]]; then
-#  echo "$CURRENT_TAG and $PREV_TAG"
-#  # берем коммиты между двумя
-#  RESULT=$(git log $CURRENT_TAG...$PREV_TAG --pretty=format:"%h %an %s" | tr '\n' ';' | sed 's/;/ - /')
-#else
-#  # берем все коммиты
-#  RESULT=$(git log $CURRENT_TAG --pretty=format:"%h %an %s" | tr '\n' ';' | sed 's/;/ - /')
-#fi
-#
-## результат для запроса
-#TICKET_TITLE='{"summary": "Релиз '"$CURRENT_TAG"' - '$(date +%d/%m/%Y)'"}'
-#COMMENT_TEXT='{"text": "'"$RESULT"'"}'
-#echo "result:"
-#echo "$COMMENT_TEXT"
-#curl -X PATCH https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/ -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d "$TICKET_TITLE"
-#curl -X POST https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/comments -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d "$COMMENT_TEXT"
-#
-#exit 0
+PREV_TAG=$(git describe --abbrev=0 --tags $CURRENT_TAG^) #предыдущий релиз
 
-RESULT=$(git log rc-0.0.12...rc-0.0.11 --pretty=format:"%h %an %s")
-TICKET_PARAMS='{"summary": "Релиз '"$CURRENT_TAG"' - '$(date +%d/%m/%Y)'", "description": '"$RESULT"'}'
-COMMENT_TEXT='{"text": "Собрали релиз"}'
-echo "$COMMENT_TEXT"
-echo "$TICKET_PARAMS"
-curl -X PATCH https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/ -H "Authorization: OAuth y0_AgAAAAAqqHAwAAiJvgAAAADSm5rhknpbiX-5TaGknNo6E3noSr31PpA" -H "X-Org-ID: 7526988" -H "Content-type: application/json" -d "$TICKET_PARAMS"
-curl -X POST https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/comments -H "Authorization: OAuth y0_AgAAAAAqqHAwAAiJvgAAAADSm5rhknpbiX-5TaGknNo6E3noSr31PpA" -H "X-Org-ID: 7526988" -H "Content-type: application/json" -d "$COMMENT_TEXT"
+echo "$CURRENT_TAG"
+echo "$PREV_TAG"
+
+if [[ $PREV_TAG ]]; then
+  echo "$CURRENT_TAG and $PREV_TAG"
+  # берем коммиты между двумя
+  RESULT=$(git log $CURRENT_TAG...$PREV_TAG --pretty=format:"%h %an %s" | tr '\n' ';' | sed 's/;/ - /')
+else
+  # берем все коммиты
+  RESULT=$(git log $CURRENT_TAG --pretty=format:"%h %an %s" | tr '\n' ';' | sed 's/;/ - /')
+fi
+
+# форматирование коммитов в одну строку
+RESULT_TMP=""
+echo "$RESULT" | while read line; do
+  echo "line: "$line
+  RESULT_TMP=$RESULT_TMP$line'\n'
+  echo $RESULT_TMP > log.txt
+done
+RESULT_ONE_LINE=$(cat log.txt)
+rm -rf log.txt
+
+# отправляем запрос
+TICKET_TITLE='{"summary": "Релиз '"$CURRENT_TAG"' - '$(date +%d/%m/%Y)'", "description": "Ответственный за релиз: '$TAG_AUTHOR'\n\n Коммиты, попавшие в релиз:\n'$RESULT_ONE_LINE'"}'
+COMMENT_TEXT='{"text": "Собрали релиз '$CURRENT_TAG'"}'
+curl -X PATCH https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/ -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d "$TICKET_TITLE"
+curl -X POST https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/comments -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d "$COMMENT_TEXT"
+
+exit 0
