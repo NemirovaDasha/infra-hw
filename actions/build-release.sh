@@ -13,16 +13,20 @@ echo "$CURRENT_TAG"
 echo "$PREV_TAG"
 
 if [[ -n $IS_PREV_TAG ]]; then
+  echo "$CURRENT_TAG and $PREV_TAG"
   # берем коммиты между двумя
   RESULT=$(git log $CURRENT_TAG...$PREV_TAG --pretty=format:"%h %an %s")
+  echo "result:"
+  echo "$RESULT"
+  COMMENT_TEXT={"text": "$RESULT"}
+  curl -X POST https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/comments -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d "$COMMENT_TEXT"
 else
   # берем все коммиты
   RESULT=$(git log $CURRENT_TAG --pretty=format:"%h %an %s")
-  echo "false"
+  COMMENT_TEXT={"text": "$RESULT"}
+  curl -X POST https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/comments -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d "$COMMENT_TEXT"
 fi
 
-COMMENT_TEXT={"text": "$RESULT"}
 
-curl -X POST https://api.tracker.yandex.net/v2/issues/HOMEWORKSHRI-161/comments -H "Authorization: OAuth $OAUTH_TOKEN" -H "X-Org-ID: $X_ORG_ID" -H "Content-type: application/json" -d "$COMMENT_TEXT"
 
 exit 0
